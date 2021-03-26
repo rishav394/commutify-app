@@ -1,10 +1,11 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import React from 'react';
 import { View } from 'react-native';
+import { AuthContext } from '../../context/AuthContext';
 import { AuthStack } from '../../stacks/auth';
 import { MainStack } from '../../stacks/main';
 import { GlobalStyles } from '../../styles';
-import { AuthContext } from '../../context/AuthContext';
+import { LoadingSpinner } from '../loader';
 
 export const MobileBaseContainer = () => {
   const [state, dispatch] = React.useReducer(
@@ -84,7 +85,13 @@ export const MobileBaseContainer = () => {
   return (
     <View style={GlobalStyles.fullScreen}>
       <AuthContext.Provider value={authContext}>
-        {state.userToken !== null ? <MainStack /> : <AuthStack />}
+        {state.isLoading ? (
+          <LoadingSpinner />
+        ) : state.userToken === null ? (
+          <MainStack />
+        ) : (
+          <AuthStack />
+        )}
       </AuthContext.Provider>
     </View>
   );

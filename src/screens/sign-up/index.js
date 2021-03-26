@@ -1,8 +1,16 @@
-import React, { useState } from 'react';
-import { Button, TextInput, View, Platform } from 'react-native';
-import { AuthContext } from '../../context/AuthContext';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Picker } from '@react-native-picker/picker';
+import React, { useState } from 'react';
+import {
+  Button,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableNativeFeedback,
+  View,
+} from 'react-native';
+import { AuthContext } from '../../context/AuthContext';
+import { GlobalStyles } from '../../styles';
 
 export const SignUp = () => {
   const [phone, setPhone] = useState('');
@@ -10,13 +18,13 @@ export const SignUp = () => {
   const [cPassword, setCPassword] = useState('');
   const [gender, setGender] = useState('');
   const [name, setName] = useState('');
-  const [date, setDate] = useState(new Date(1598051730000));
+  const [date, setDate] = useState(undefined);
   const [showDatePopup, setShowDatePopup] = useState(false);
 
   const { signUp } = React.useContext(AuthContext);
 
   return (
-    <View>
+    <View style={GlobalStyles.container}>
       <TextInput placeholder="Name" value={name} onChangeText={setName} />
       <TextInput placeholder="Username" value={phone} onChangeText={setPhone} />
       <TextInput
@@ -32,20 +40,25 @@ export const SignUp = () => {
         onChangeText={setCPassword}
         secureTextEntry
       />
-      <Button
-        title={date.toISOString() || 'D.O.B'}
-        onPress={() => {
+      <TouchableNativeFeedback
+        onPressIn={() => {
           setShowDatePopup(true);
-        }}
-      />
+        }}>
+        <View style={[GlobalStyles.centered, styles.thic]}>
+          <Text style={styles.signUp}>
+            {date?.toLocaleString() || 'Click here to set DOB'}
+          </Text>
+        </View>
+      </TouchableNativeFeedback>
+
       {showDatePopup && (
         <DateTimePicker
-          value={date}
+          value={date || new Date()}
           mode={'date'}
           display="calendar"
           onChange={(event, selectedDate) => {
             const currentDate = selectedDate || date;
-            setShowDatePopup(Platform.OS === 'ios');
+            setShowDatePopup(false);
             setDate(currentDate);
           }}
         />
@@ -68,3 +81,12 @@ export const SignUp = () => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  signUp: {
+    color: 'grey',
+  },
+  thic: {
+    height: 20,
+  },
+});

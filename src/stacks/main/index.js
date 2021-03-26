@@ -1,20 +1,39 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
-import { Login } from '../../screens/login';
-import { SignUp } from '../../screens/sign-up';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
+import { DomainPage } from '../../screens/domain-page';
 
 const MainStackNavigator = createBottomTabNavigator();
 
 export const MainStack = () => {
   return (
     <MainStackNavigator.Navigator
-      screenOptions={{
-        gestureEnabled: false,
-        headerTintColor: Colors.darker,
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
+          if (route.name === 'domain-page') {
+            iconName = focused ? 'alien' : 'alien-outline';
+          } else if (route.name === 'Settings') {
+            iconName = focused ? 'ios-list-box' : 'ios-list';
+          }
+          return (
+            <MaterialCommunityIcons name={iconName} color={color} size={size} />
+          );
+        },
+      })}
+      tabBarOptions={{
+        activeTintColor: 'tomato',
+        inactiveTintColor: 'gray',
       }}>
-      <MainStackNavigator.Screen name={'Login'} component={Login} />
-      <MainStackNavigator.Screen name={'Signup'} component={SignUp} />
+      <MainStackNavigator.Screen
+        options={{
+          tabBarLabel: 'Domain',
+        }}
+        name={'domain-page'}
+        component={DomainPage}
+      />
+      <MainStackNavigator.Screen name={'s-page'} component={DomainPage} />
     </MainStackNavigator.Navigator>
   );
 };

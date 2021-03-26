@@ -4,19 +4,20 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  TouchableHighlight,
+  TouchableWithoutFeedback,
   View,
 } from 'react-native';
 import { AuthContext } from '../../context/AuthContext';
+import { GlobalStyles } from '../../styles';
 
-export const Login = () => {
+export const Login = ({ navigation }) => {
   const [phone, setPhone] = React.useState('');
   const [password, setPassword] = React.useState('');
 
   const { signIn } = React.useContext(AuthContext);
 
   return (
-    <View>
+    <View style={GlobalStyles.container}>
       <TextInput placeholder="Phone" value={phone} onChangeText={setPhone} />
       <TextInput
         placeholder="Password"
@@ -28,11 +29,14 @@ export const Login = () => {
         title="Sign in"
         onPress={() => signIn({ username: phone, password })}
       />
-      <TouchableHighlight>
-        <View>
+      <TouchableWithoutFeedback
+        onPressIn={() => {
+          navigation.navigate('Signup');
+        }}>
+        <View style={[GlobalStyles.centered, GlobalStyles.container]}>
           <Text style={styles.signUp}>Sign up instead</Text>
         </View>
-      </TouchableHighlight>
+      </TouchableWithoutFeedback>
     </View>
   );
 };
