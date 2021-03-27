@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import React from 'react';
 import { View } from 'react-native';
-import { login, logout } from '../../apis';
+import { login, logout, signUp } from '../../apis';
 import { AuthContext } from '../../context/AuthContext';
 import { AuthStack } from '../../stacks/auth';
 import { MainStack } from '../../stacks/main';
@@ -67,8 +67,8 @@ export const MobileBaseContainer = () => {
         // We will also need to handle errors if sign in failed
         // After getting token, we need to persist the token using `SecureStore`
         // In the example, we'll use a dummy token
-        await login(data.phone, data.password);
-        dispatch({ type: 'SIGN_IN', token: 'dummy-auth-token' });
+        const session = await login(data.phone, data.password);
+        dispatch({ type: 'SIGN_IN', token: session });
       },
       signOut: () => {
         AsyncStorage.clear();
@@ -80,8 +80,8 @@ export const MobileBaseContainer = () => {
         // We will also need to handle errors if sign up failed
         // After getting token, we need to persist the token using `SecureStore`
         // In the example, we'll use a dummy token
-
-        dispatch({ type: 'SIGN_IN', token: 'dummy-auth-token' });
+        const session = await signUp(data);
+        dispatch({ type: 'SIGN_IN', token: session });
       },
     }),
     []

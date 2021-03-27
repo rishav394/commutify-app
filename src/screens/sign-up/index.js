@@ -2,6 +2,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import { Picker } from '@react-native-picker/picker';
 import React, { useState } from 'react';
 import {
+  Alert,
   Button,
   StyleSheet,
   Text,
@@ -16,9 +17,9 @@ export const SignUp = () => {
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
   const [cPassword, setCPassword] = useState('');
-  const [gender, setGender] = useState('');
+  const [gender, setGender] = useState(null);
   const [name, setName] = useState('');
-  const [date, setDate] = useState(undefined);
+  const [dob, setDob] = useState('');
   const [showDatePopup, setShowDatePopup] = useState(false);
 
   const { signUp } = React.useContext(AuthContext);
@@ -49,36 +50,55 @@ export const SignUp = () => {
           setShowDatePopup(true);
         }}>
         <View style={[GlobalStyles.centered, styles.thic]}>
-          <Text style={styles.signUp}>
-            {date?.toLocaleString() || 'Click here to set DOB'}
-          </Text>
+          <Text style={styles.signUp}>{dob || 'Click here to set DOB'}</Text>
         </View>
       </TouchableNativeFeedback>
 
       {showDatePopup && (
         <DateTimePicker
-          value={date || new Date()}
+          value={new Date()}
           mode={'date'}
           display="calendar"
           onChange={(event, selectedDate) => {
-            const currentDate = selectedDate || date;
+            const currentDate = selectedDate;
+            setDob(currentDate?.toISOString()?.split('T')[0]);
             setShowDatePopup(false);
-            setDate(currentDate);
           }}
         />
       )}
       <Picker
         selectedValue={gender}
-        onValueChange={(itemValue, itemIndex) => setGender(itemValue)}>
-        <Picker.Item label="Male" value="0" />
-        <Picker.Item label="Female" value="1" />
-        <Picker.Item label="Other" value="3" />
+        onValueChange={(itemValue, itemIndex) => {
+          if (itemValue === 0) {
+            setGender(null);
+          } else {
+            setGender(itemValue);
+          }
+        }}>
+        <Picker.Item label="Prefer not to say" value="0" />
+        <Picker.Item label="Male" value="1" />
+        <Picker.Item label="Female" value="2" />
+        <Picker.Item label="Other" value="4" />
       </Picker>
       <Button
         title="Sign up"
         onPress={() => {
-          // Validate
-          signUp({ username: phone, password });
+          if (password !== cPassword) {
+            Alert.alert('Passwords do not match');
+            return;
+          }
+          const data = {
+            name,
+            phone,
+            password,
+            dob,
+            gender,
+          };
+          signUp(data).catch((error) => {
+            if (error.response) {
+              Alert.alert('Unable to sign up', error.response.data);
+            }
+          });
         }}
       />
     </View>

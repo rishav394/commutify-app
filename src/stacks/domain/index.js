@@ -2,6 +2,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 import { DomainInfo } from '../../screens/domain-info';
 import { DomainPage } from '../../screens/domain-page';
+import { UserPage } from '../../screens/users-page';
 
 const DomainStackNavigator = createStackNavigator();
 
@@ -25,6 +26,20 @@ export const DomainStack = () => {
         options={{
           title: '',
           headerTransparent: true,
+        }}
+      />
+      <DomainStackNavigator.Screen
+        name={'user-page'}
+        component={UserPage}
+        options={{
+          title: 'Users in domain',
+        }}
+      />
+      <DomainStackNavigator.Screen
+        name={'user-details'}
+        component={UserPage}
+        options={{
+          title: 'Users details',
         }}
       />
     </DomainStackNavigator.Navigator>

@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList, TouchableNativeFeedback, View } from 'react-native';
+import {
+  Alert,
+  FlatList,
+  RefreshControl,
+  TouchableNativeFeedback,
+  View,
+} from 'react-native';
 import { getDomains } from '../../apis';
 import { DomainNode } from '../../components/domain-node';
 import { LoadingSpinner } from '../../components/loader';
@@ -17,7 +23,10 @@ export const DomainPage = ({ navigation }) => {
       <View>
         <TouchableNativeFeedback
           onPress={() => {
-            navigation.navigate('domain-info', item);
+            navigation.navigate('domain-info', {
+              ...item,
+              onGoBack: fetchDomainAsync,
+            });
           }}>
           <View>
             <DomainNode name={item.name} subscribed={item.subscribed} />
@@ -27,13 +36,14 @@ export const DomainPage = ({ navigation }) => {
     );
   };
 
-  useEffect(() => {
-    const setDomainAsync = async () => {
-      setDomains(await getDomains());
-      setIsLoading(false);
-    };
+  const fetchDomainAsync = async () => {
+    setIsLoading(true);
+    setDomains(await getDomains());
+    setIsLoading(false);
+  };
 
-    setDomainAsync();
+  useEffect(() => {
+    fetchDomainAsync();
   }, []);
 
   return (
@@ -55,6 +65,12 @@ export const DomainPage = ({ navigation }) => {
               )}
               renderItem={itemRenderer}
               keyExtractor={(item) => item.id}
+              refreshControl={
+                <RefreshControl
+                  refreshing={isLoading}
+                  onRefresh={fetchDomainAsync}
+                />
+              }
             />
           </View>
         </>
