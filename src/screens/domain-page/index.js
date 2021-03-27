@@ -13,7 +13,7 @@ import { NoData } from '../../components/no-data';
 import { SearchBar } from '../../components/search-bar';
 import { GlobalStyles } from '../../styles';
 
-export const DomainPage = ({ navigation }) => {
+export const DomainPage = ({ navigation, route }) => {
   const [searchText, setSearchText] = useState('');
   const [domains, setDomains] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -25,7 +25,6 @@ export const DomainPage = ({ navigation }) => {
           onPress={() => {
             navigation.navigate('domain-info', {
               ...item,
-              onGoBack: fetchDomainAsync,
             });
           }}>
           <View>
@@ -45,6 +44,12 @@ export const DomainPage = ({ navigation }) => {
   useEffect(() => {
     fetchDomainAsync();
   }, []);
+
+  useEffect(() => {
+    if (route?.params?.refresh) {
+      fetchDomainAsync();
+    }
+  }, [route]);
 
   return (
     <View

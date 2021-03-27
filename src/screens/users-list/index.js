@@ -5,7 +5,7 @@ import { SearchBar } from '../../components/search-bar';
 import { UserNode } from '../../components/user-node';
 import { GlobalStyles } from '../../styles';
 
-export const UserPage = ({ navigation, route }) => {
+export const UserList = ({ navigation, route }) => {
   const [users, setUsers] = useState([]);
   const [searchValue, setSearchValue] = useState('');
 

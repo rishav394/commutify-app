@@ -41,7 +41,6 @@ export const subscribeDomain = async (domainId) => {
 };
 
 export const unSubscribeDomain = async (domainId) => {
-  console.log(domainId);
   return await kobe.delete('/domain-user', {
     data: {
       domain: domainId,
@@ -54,4 +53,39 @@ export const fetchUsersInDomain = async (domainId) => {
     domain__id: domainId,
   });
   return res.data;
+};
+
+export const getDetailedUser = async (uid) => {
+  const res = await kobe.post('/users', {
+    id: uid,
+  });
+  return res.data[0];
+};
+
+export const sendFriendRequest = async (uid) => {
+  await kobe.put('/friends', {
+    friend_id: uid,
+  });
+};
+
+export const acceptFriendRequest = async (uid) => {
+  await kobe.patch('/friends', {
+    friend_id: uid,
+  });
+};
+
+export const cancelFriendRequest = async (uid) => {
+  await removeFriend(uid);
+};
+
+export const removeFriend = async (uid) => {
+  await kobe.delete('/friends', {
+    data: {
+      friend_id: uid,
+    },
+  });
+};
+
+export const getFriendInfo = async (uid) => {
+  return (await kobe.get(`/friends?friend_id=${uid}`)).data;
 };

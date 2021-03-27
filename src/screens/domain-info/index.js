@@ -49,8 +49,9 @@ export const DomainInfo = ({ navigation, route }) => {
             route.params.subscribed
               ? await unSubscribeDomain(route.params.id)
               : await subscribeDomain(route.params.id);
-            route.params.onGoBack();
-            navigation.goBack();
+            navigation.navigate('domain-page', {
+              refresh: true,
+            });
           } catch (error) {
             Alert.alert(
               `Could not ${
