@@ -89,3 +89,19 @@ export const removeFriend = async (uid) => {
 export const getFriendInfo = async (uid) => {
   return (await kobe.get(`/friends?friend_id=${uid}`)).data;
 };
+
+export const getAllFriends = async () => {
+  return (await kobe.post('/friends')).data;
+};
+
+export const whoami = async () => {
+  return (await kobe.get('/whoami')).data;
+};
+
+export const fetchUserById = async (id) => {
+  return (
+    await kobe.post('/users', {
+      id,
+    })
+  ).data;
+};

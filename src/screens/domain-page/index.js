@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import {
   Alert,
   FlatList,
   RefreshControl,
+  StyleSheet,
   TouchableNativeFeedback,
   View,
 } from 'react-native';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { getDomains } from '../../apis';
 import { DomainNode } from '../../components/domain-node';
 import { LoadingSpinner } from '../../components/loader';
@@ -41,6 +43,28 @@ export const DomainPage = ({ navigation, route }) => {
     setIsLoading(false);
   };
 
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: (props) => (
+        <TouchableNativeFeedback
+          onPress={() => {
+            Alert.alert(
+              'To add a domain kindle contact the Admin',
+              'khushitulsyan1@gmail.com\n9916614719'
+            );
+          }}>
+          <View style={styles.headerIcon}>
+            <MaterialCommunityIcons
+              name="card-plus-outline"
+              size={25}
+              color={props.tintColor}
+            />
+          </View>
+        </TouchableNativeFeedback>
+      ),
+    });
+  }, [navigation]);
+
   useEffect(() => {
     fetchDomainAsync();
   }, []);
@@ -57,6 +81,7 @@ export const DomainPage = ({ navigation, route }) => {
         GlobalStyles.container,
         GlobalStyles.fullScreen,
         GlobalStyles.bottomTabBottomContainer,
+        GlobalStyles.noTitleBarContainer,
       ]}>
       {isLoading ? (
         <LoadingSpinner />
@@ -85,3 +110,9 @@ export const DomainPage = ({ navigation, route }) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  headerIcon: {
+    padding: 10,
+  },
+});

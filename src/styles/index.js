@@ -11,7 +11,7 @@ export const GlobalStyles = StyleSheet.create({
     alignItems: 'center',
   },
   noTitleBarContainer: {
-    paddingTop: 50,
+    paddingTop: 45,
   },
   bottomTabBottomContainer: {
     paddingBottom: 50,

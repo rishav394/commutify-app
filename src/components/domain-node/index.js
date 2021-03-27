@@ -7,7 +7,7 @@ export const DomainNode = (props) => {
       style={[
         styles.container,
         {
-          backgroundColor: props.subscribed ? 'green' : 'red',
+          backgroundColor: props.subscribed ? '#18ba64' : '#c42323',
         },
       ]}>
       <Text style={styles.text} numberOfLines={1}>

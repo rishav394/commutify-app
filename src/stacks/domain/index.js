@@ -16,7 +16,9 @@ export const DomainStack = () => {
       }}>
       <DomainStackNavigator.Screen
         options={{
-          headerShown: false,
+          headerShown: true,
+          title: 'Domains list',
+          headerTransparent: true,
         }}
         name={'domain-page'}
         component={DomainPage}

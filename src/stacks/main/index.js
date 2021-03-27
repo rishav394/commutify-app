@@ -2,6 +2,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { DomainStack } from '../domain';
+import { FriendStack } from '../friend';
 import { ProfileStack } from '../profile';
 
 const MainTabNavigator = createBottomTabNavigator();
@@ -14,6 +15,8 @@ export const MainStack = () => {
           let iconName;
           if (route.name === 'domain-stack') {
             iconName = focused ? 'alien' : 'alien-outline';
+          } else if (route.name === 'friend-stack') {
+            iconName = focused ? 'airballoon' : 'airballoon-outline';
           } else if (route.name === 'profile-stack') {
             iconName = focused ? 'alert-circle' : 'alert-circle-outline';
           }
@@ -32,6 +35,13 @@ export const MainStack = () => {
         }}
         name={'domain-stack'}
         component={DomainStack}
+      />
+      <MainTabNavigator.Screen
+        options={{
+          tabBarLabel: 'Connections',
+        }}
+        name={'friend-stack'}
+        component={FriendStack}
       />
       <MainTabNavigator.Screen
         options={{
