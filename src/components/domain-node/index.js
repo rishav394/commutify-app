@@ -1,21 +1,19 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableNativeFeedback, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
 export const DomainNode = (props) => {
   return (
-    <TouchableNativeFeedback>
-      <View
-        style={[
-          styles.container,
-          {
-            backgroundColor: props.subscribed ? 'green' : 'red',
-          },
-        ]}>
-        <Text style={styles.text} numberOfLines={1}>
-          {props.name}
-        </Text>
-      </View>
-    </TouchableNativeFeedback>
+    <View
+      style={[
+        styles.container,
+        {
+          backgroundColor: props.subscribed ? 'green' : 'red',
+        },
+      ]}>
+      <Text style={styles.text} numberOfLines={1}>
+        {props.name}
+      </Text>
+    </View>
   );
 };
 

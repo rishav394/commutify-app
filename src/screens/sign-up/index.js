@@ -26,12 +26,16 @@ export const SignUp = () => {
   return (
     <View style={GlobalStyles.container}>
       <TextInput placeholder="Name" value={name} onChangeText={setName} />
-      <TextInput placeholder="Username" value={phone} onChangeText={setPhone} />
+      <TextInput
+        placeholder="Phone"
+        value={phone}
+        onChangeText={setPhone}
+        keyboardType={'phone-pad'}
+      />
       <TextInput
         placeholder="Password"
         value={password}
         onChangeText={setPassword}
-        keyboardType={'phone-pad'}
         secureTextEntry
       />
       <TextInput
@@ -68,7 +72,6 @@ export const SignUp = () => {
         onValueChange={(itemValue, itemIndex) => setGender(itemValue)}>
         <Picker.Item label="Male" value="0" />
         <Picker.Item label="Female" value="1" />
-        <Picker.Item label="Transgender" value="2" />
         <Picker.Item label="Other" value="3" />
       </Picker>
       <Button

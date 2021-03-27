@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  Alert,
   Button,
   StyleSheet,
   Text,
@@ -18,7 +19,12 @@ export const Login = ({ navigation }) => {
 
   return (
     <View style={GlobalStyles.container}>
-      <TextInput placeholder="Phone" value={phone} onChangeText={setPhone} />
+      <TextInput
+        placeholder="Phone"
+        value={phone}
+        onChangeText={setPhone}
+        keyboardType={'phone-pad'}
+      />
       <TextInput
         placeholder="Password"
         value={password}
@@ -27,7 +33,11 @@ export const Login = ({ navigation }) => {
       />
       <Button
         title="Sign in"
-        onPress={() => signIn({ username: phone, password })}
+        onPress={() =>
+          signIn({ phone, password }).catch(() =>
+            Alert.alert('Unable to login', 'Please check your details')
+          )
+        }
       />
       <TouchableWithoutFeedback
         onPressIn={() => {

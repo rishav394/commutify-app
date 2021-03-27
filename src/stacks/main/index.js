@@ -1,21 +1,21 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { DomainStack } from '../domain';
+import { ProfileStack } from '../profile';
 
-import { DomainPage } from '../../screens/domain-page';
-
-const MainStackNavigator = createBottomTabNavigator();
+const MainTabNavigator = createBottomTabNavigator();
 
 export const MainStack = () => {
   return (
-    <MainStackNavigator.Navigator
+    <MainTabNavigator.Navigator
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
-          if (route.name === 'domain-page') {
+          if (route.name === 'domain-stack') {
             iconName = focused ? 'alien' : 'alien-outline';
-          } else if (route.name === 'Settings') {
-            iconName = focused ? 'ios-list-box' : 'ios-list';
+          } else if (route.name === 'profile-stack') {
+            iconName = focused ? 'alert-circle' : 'alert-circle-outline';
           }
           return (
             <MaterialCommunityIcons name={iconName} color={color} size={size} />
@@ -26,14 +26,20 @@ export const MainStack = () => {
         activeTintColor: 'tomato',
         inactiveTintColor: 'gray',
       }}>
-      <MainStackNavigator.Screen
+      <MainTabNavigator.Screen
         options={{
           tabBarLabel: 'Domain',
         }}
-        name={'domain-page'}
-        component={DomainPage}
+        name={'domain-stack'}
+        component={DomainStack}
       />
-      <MainStackNavigator.Screen name={'s-page'} component={DomainPage} />
-    </MainStackNavigator.Navigator>
+      <MainTabNavigator.Screen
+        options={{
+          tabBarLabel: 'Profile',
+        }}
+        name={'profile-stack'}
+        component={ProfileStack}
+      />
+    </MainTabNavigator.Navigator>
   );
 };

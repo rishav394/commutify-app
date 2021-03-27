@@ -10,4 +10,10 @@ export const GlobalStyles = StyleSheet.create({
   centered: {
     alignItems: 'center',
   },
+  noTitleBarContainer: {
+    paddingTop: 40,
+  },
+  bottomTabBottomContainer: {
+    paddingBottom: 50,
+  },
 });

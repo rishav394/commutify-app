@@ -1,11 +1,10 @@
 import React from 'react';
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
 
-export const LoadingSpinner = () => {
+export const NoData = () => {
   return (
     <View style={styles.container}>
-      <ActivityIndicator size={40} color={'red'} />
-      <Text style={styles.text}>Loading</Text>
+      <Text style={styles.text}>No Data</Text>
     </View>
   );
 };

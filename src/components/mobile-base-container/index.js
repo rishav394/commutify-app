@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import React from 'react';
 import { View } from 'react-native';
+import { login, logout } from '../../apis';
 import { AuthContext } from '../../context/AuthContext';
 import { AuthStack } from '../../stacks/auth';
 import { MainStack } from '../../stacks/main';
@@ -44,7 +45,7 @@ export const MobileBaseContainer = () => {
       let userToken;
 
       try {
-        userToken = await AsyncStorage.getItem('userToken');
+        userToken = await AsyncStorage.getItem('session');
       } catch (e) {
         // Restoring token failed
       }
@@ -66,10 +67,14 @@ export const MobileBaseContainer = () => {
         // We will also need to handle errors if sign in failed
         // After getting token, we need to persist the token using `SecureStore`
         // In the example, we'll use a dummy token
-
+        await login(data.phone, data.password);
         dispatch({ type: 'SIGN_IN', token: 'dummy-auth-token' });
       },
-      signOut: () => dispatch({ type: 'SIGN_OUT' }),
+      signOut: () => {
+        AsyncStorage.clear();
+        logout();
+        dispatch({ type: 'SIGN_OUT' });
+      },
       signUp: async (data) => {
         // In a production app, we need to send user data to server and get a token
         // We will also need to handle errors if sign up failed
@@ -88,9 +93,9 @@ export const MobileBaseContainer = () => {
         {state.isLoading ? (
           <LoadingSpinner />
         ) : state.userToken === null ? (
-          <MainStack />
-        ) : (
           <AuthStack />
+        ) : (
+          <MainStack />
         )}
       </AuthContext.Provider>
     </View>
