@@ -63,8 +63,7 @@ export const FriendsPage = ({ navigation, route }) => {
     fetchFriendsAsync();
     interval.current = setInterval(() => {
       fetchFriendsAsync();
-      console.log(interval.current);
-    }, 1000);
+    }, 12000);
     return () => {
       clearInterval(interval.current);
     };
