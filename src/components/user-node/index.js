@@ -33,7 +33,7 @@ export const UserNode = ({ user, navigation }) => {
           width={40}
           style={styles.image}
           source={{
-            uri: user.user__photo || getDefaultImage(),
+            uri: user.user__photo || getDefaultImage(user.user__id),
           }}
         />
         <View style={styles.friendshipContainer}>

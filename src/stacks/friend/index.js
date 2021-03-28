@@ -1,5 +1,6 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
+import { FindUsers } from '../../screens/find-users';
 import { FriendsPage } from '../../screens/friends-page';
 import { UserDetails } from '../../screens/user-details';
 import { UserList } from '../../screens/users-list';
@@ -32,6 +33,13 @@ export const FriendStack = () => {
         component={UserDetails}
         options={{
           title: 'Users details',
+        }}
+      />
+      <FriendStackNavigator.Screen
+        name={'find-users'}
+        component={FindUsers}
+        options={{
+          title: 'Find user',
         }}
       />
     </FriendStackNavigator.Navigator>

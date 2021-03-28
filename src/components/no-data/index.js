@@ -1,10 +1,10 @@
 import React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 
-export const NoData = () => {
+export const NoData = ({ text }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>No Data</Text>
+      <Text style={styles.text}>{text || 'No Data'}</Text>
     </View>
   );
 };

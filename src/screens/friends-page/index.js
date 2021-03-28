@@ -65,7 +65,7 @@ export const FriendsPage = ({ navigation, route }) => {
       fetchFriendsAsync();
     }, 12000);
     return () => {
-      clearInterval(interval.current);
+      interval.current && clearInterval(interval.current);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -73,7 +73,10 @@ export const FriendsPage = ({ navigation, route }) => {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: (props) => (
-        <TouchableNativeFeedback onPress={() => {}}>
+        <TouchableNativeFeedback
+          onPress={() => {
+            navigation.navigate('find-users');
+          }}>
           <View style={styles.headerIcon}>
             <MaterialCommunityIcons
               name="account-plus-outline"
@@ -104,7 +107,6 @@ export const FriendsPage = ({ navigation, route }) => {
           <>
             <FriendButton
               onClick={() => {
-                //navigate
                 navigation.navigate('user-list', {
                   uids: friends,
                 });
@@ -113,7 +115,6 @@ export const FriendsPage = ({ navigation, route }) => {
             />
             <FriendButton
               onClick={() => {
-                //navigate
                 navigation.navigate('user-list', {
                   uids: friendsOutgoing,
                 });
@@ -122,7 +123,6 @@ export const FriendsPage = ({ navigation, route }) => {
             />
             <FriendButton
               onClick={() => {
-                //navigate
                 navigation.navigate('user-list', {
                   uids: friendsIncoming,
                 });

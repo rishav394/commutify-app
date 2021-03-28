@@ -15,5 +15,9 @@ const avatars = [
   'https://styles.redditmedia.com/t5_bflj4/styles/profileIcon_snoofc9d4179-fd5b-4de4-af94-65b330ebc8ec-headshot.png?width=256&height=256&crop=256:256,smart&s=caa5ad951c87b4630564abc8adcfe28a82d0f7c9',
 ];
 
-export const getDefaultImage = () =>
-  avatars[Math.floor(Math.random() * avatars.length)];
+export const getDefaultImage = (id) => {
+  if (id) {
+    return avatars[id % avatars.length];
+  }
+  return avatars[Math.floor(Math.random() * avatars.length)];
+};

@@ -59,7 +59,6 @@ export const UserList = ({ navigation, route }) => {
             )
             .map((user) => (
               <UserNode
-                back={''}
                 user={user}
                 key={user.user__id}
                 navigation={navigation}

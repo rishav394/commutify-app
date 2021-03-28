@@ -5,11 +5,23 @@ import { StatusBar, View } from 'react-native';
 import { MobileBaseContainer } from './components/mobile-base-container';
 import { GlobalStyles } from './styles';
 
+const MyTheme = {
+  dark: false,
+  colors: {
+    primary: 'rgb(255, 45, 85)',
+    background: 'rgb(250, 250, 250)',
+    card: 'rgb(255, 255, 255)',
+    text: 'rgb(28, 28, 30)',
+    border: 'rgb(199, 199, 204)',
+    notification: 'rgb(255, 69, 58)',
+  },
+};
+
 export const App = () => {
   return (
     <View style={GlobalStyles.fullScreen}>
       <StatusBar barStyle={'dark-content'} />
-      <NavigationContainer>
+      <NavigationContainer theme={MyTheme}>
         <MobileBaseContainer />
       </NavigationContainer>
     </View>

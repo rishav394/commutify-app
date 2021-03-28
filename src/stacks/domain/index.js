@@ -27,8 +27,7 @@ export const DomainStack = () => {
         name={'domain-info'}
         component={DomainInfo}
         options={{
-          title: '',
-          headerTransparent: true,
+          headerTransparent: false,
         }}
       />
       <DomainStackNavigator.Screen

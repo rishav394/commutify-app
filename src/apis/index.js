@@ -105,3 +105,11 @@ export const fetchUserById = async (id) => {
     })
   ).data;
 };
+
+export const searchUsersByName = async (name) => {
+  return (
+    await kobe.post('/users', {
+      name__icontains: name,
+    })
+  ).data;
+};

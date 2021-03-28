@@ -30,7 +30,7 @@ export const UserPortrait = ({ user, ...props }) => {
       refreshControl={props.refreshControl}>
       <Image
         source={{
-          uri: user?.photo || getDefaultImage(),
+          uri: user?.photo || getDefaultImage(user?.id),
         }}
         style={styles.imageContainer}
         height={200}

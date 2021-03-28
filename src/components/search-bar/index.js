@@ -19,7 +19,7 @@ export const SearchBar = ({
       onPress={() => {
         inputRef.current.focus();
       }}>
-      <View style={boxed ? [styles.container, styles.boxed] : styles.container}>
+      <View style={boxed ? [styles.boxed] : undefined}>
         <TextInput
           ref={inputRef}
           placeholder={placeholder || 'Search'}
@@ -27,6 +27,7 @@ export const SearchBar = ({
           onChangeText={setSearchText}
           maxLength={20}
           style={styles.text}
+          selectTextOnFocus={true}
           blurOnSubmit={true}
         />
       </View>
@@ -35,9 +36,6 @@ export const SearchBar = ({
 };
 
 const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-  },
   boxed: {
     backgroundColor: 'white',
     marginHorizontal: 10,
@@ -46,8 +44,8 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   text: {
+    textAlign: 'center',
     fontSize: 18,
     color: 'grey',
-    textAlign: 'center',
   },
 });

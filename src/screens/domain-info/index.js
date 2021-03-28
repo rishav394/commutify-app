@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 import {
   Alert,
   Button,
@@ -12,6 +12,13 @@ import { subscribeDomain, unSubscribeDomain } from '../../apis';
 import { GlobalStyles } from '../../styles';
 
 export const DomainInfo = ({ navigation, route }) => {
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      title: route.params.name,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [navigation]);
+
   return (
     <View
       style={[
