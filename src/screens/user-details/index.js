@@ -17,6 +17,8 @@ import {
   removeFriend,
   sendFriendRequest,
 } from '../../apis';
+import { LoadingSpinner } from '../../components/loader';
+import { UserPortrait } from '../../components/user-portrait';
 import { genderMapping } from '../../constants';
 import { GlobalStyles } from '../../styles';
 
@@ -51,18 +53,21 @@ import { GlobalStyles } from '../../styles';
 
 /*
 {
-    "user1__id": 1,
-    "user2__id": 14,
-    "status__value": "Connected",
-    "initiator__id": 1
+  "user1__id": 1,
+  "user2__id": 14,
+  "status__value": "Connected",
+  "initiator__id": 1
 }
 */
 export const UserDetails = ({ navigation, route }) => {
   const [user, setUser] = useState(undefined);
   const [friendInfo, setFriendInfo] = useState(undefined);
+  const [isLoading, setIsLoading] = useState(true);
 
   const fetchUserAsync = async () => {
+    setIsLoading(true);
     setUser(await getDetailedUser(route.params.user__id));
+    setIsLoading(false);
   };
 
   const fetchFriendAsync = async () => {
@@ -108,38 +113,21 @@ export const UserDetails = ({ navigation, route }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  if (isLoading) {
+    return (
+      <View
+        style={
+          (GlobalStyles.fullScreen,
+          GlobalStyles.container,
+          GlobalStyles.centered)
+        }>
+        <LoadingSpinner />
+      </View>
+    );
+  }
+
   return (
-    <ScrollView
-      contentContainerStyle={[
-        GlobalStyles.centered,
-        GlobalStyles.container,
-        styles.container,
-      ]}>
-      <Image
-        source={{
-          uri:
-            route.params.user__photo ||
-            'https://img.icons8.com/pastel-glyph/2x/person-male.png',
-        }}
-        style={styles.imageContainer}
-        height={200}
-        width={200}
-      />
-      <Text style={styles.head}>About</Text>
-      <Text style={styles.text}>{route.params.user__name}</Text>
-      <Text style={styles.text}>{user?.bio}</Text>
-      <Text style={styles.text}>Born {user?.dob}</Text>
-      {user?.gender_id && (
-        <Text style={styles.text}>{genderMapping[user?.gender_id]}</Text>
-      )}
-      <Text style={styles.head}>Contact</Text>
-      <Text style={styles.text}>{user?.email}</Text>
-      <Text style={styles.text}>{user?.phone}</Text>
-      <Text style={styles.head}>Member since</Text>
-      <Text style={styles.text}>
-        {new Date(user?.joined_at).toDateString()}
-      </Text>
-      <Text style={styles.head}>Social</Text>
+    <UserPortrait user={user}>
       <View style={styles.buttonContainer}>
         {friendInfo === undefined ? (
           <ActivityIndicator color="purple" />
@@ -173,7 +161,7 @@ export const UserDetails = ({ navigation, route }) => {
           />
         )}
       </View>
-    </ScrollView>
+    </UserPortrait>
   );
 };
 

@@ -6,7 +6,7 @@ import {
   TouchableNativeFeedback,
   View,
 } from 'react-native';
-import { genderMapping } from '../../constants';
+import { getDefaultImage, genderMapping } from '../../constants';
 import { calculateAge } from '../../util';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -33,9 +33,7 @@ export const UserNode = ({ user, navigation }) => {
           width={40}
           style={styles.image}
           source={{
-            uri:
-              user.user__photo ||
-              'https://img.icons8.com/pastel-glyph/2x/person-male.png',
+            uri: user.user__photo || getDefaultImage(),
           }}
         />
         <View style={styles.friendshipContainer}>

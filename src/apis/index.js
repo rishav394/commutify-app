@@ -3,7 +3,7 @@ import Axios from 'axios';
 
 // Axios is storing the cookies
 const kobe = Axios.create({
-  baseURL: 'http://10.0.2.2:8000',
+  baseURL: 'http://192.168.0.201:8000',
 });
 
 // export function setAPIAuthHeaders(session) {
