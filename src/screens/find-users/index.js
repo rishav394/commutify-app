@@ -37,6 +37,9 @@ export const FindUsers = ({ navigation }) => {
     if (searchText.length > 2) {
       isLoading && setIsLoading(true);
       timeout.current = setTimeout(fetchUsersAsync, 1000);
+    } else {
+      setUsers([]);
+      setIsLoading(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchText]);

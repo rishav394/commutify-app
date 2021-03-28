@@ -25,14 +25,21 @@ export const FriendsPage = ({ navigation, route }) => {
   const [friendsIncoming, setFriendsIncoming] = useState([]);
   const [friendsOutgoing, setFriendsOutgoing] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [i, setI] = useState();
+  const [, setI] = useState();
+
+  // https://stackoverflow.com/q/53024496/4427870
+  async function getCurrentHookValue(setHookFunction) {
+    return new Promise((resolve) => {
+      setHookFunction((prev) => {
+        return resolve(prev);
+      });
+    });
+  }
 
   const fetchFriendsAsync = async () => {
     setIsLoading(true);
-    let me;
-    if (i) {
-      me = i;
-    } else {
+    let me = await getCurrentHookValue(setI);
+    if (!me) {
       me = await whoami();
       setI(me);
     }
@@ -57,15 +64,14 @@ export const FriendsPage = ({ navigation, route }) => {
     );
     setIsLoading(false);
   };
+
   let interval = useRef();
 
   useEffect(() => {
     fetchFriendsAsync();
-    interval.current = setInterval(() => {
-      fetchFriendsAsync();
-    }, 12000);
+    interval.current = setInterval(fetchFriendsAsync, 4000);
     return () => {
-      interval.current && clearInterval(interval.current);
+      clearInterval(interval.current);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

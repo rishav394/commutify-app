@@ -39,6 +39,7 @@ export const MainStack = () => {
       <MainTabNavigator.Screen
         options={{
           tabBarLabel: 'Connections',
+          unmountOnBlur: true,
         }}
         name={'friend-stack'}
         component={FriendStack}
