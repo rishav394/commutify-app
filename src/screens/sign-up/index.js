@@ -6,10 +6,10 @@ import {
   Button,
   StyleSheet,
   Text,
-  TextInput,
   TouchableNativeFeedback,
   View,
 } from 'react-native';
+import { Input } from '../../components/input';
 import { AuthContext } from '../../context/AuthContext';
 import { GlobalStyles } from '../../styles';
 
@@ -26,20 +26,20 @@ export const SignUp = () => {
 
   return (
     <View style={GlobalStyles.container}>
-      <TextInput placeholder="Name" value={name} onChangeText={setName} />
-      <TextInput
+      <Input placeholder="Name" value={name} onChangeText={setName} />
+      <Input
         placeholder="Phone"
         value={phone}
         onChangeText={setPhone}
         keyboardType={'phone-pad'}
       />
-      <TextInput
+      <Input
         placeholder="Password"
         value={password}
         onChangeText={setPassword}
         secureTextEntry
       />
-      <TextInput
+      <Input
         placeholder="Confirm password"
         value={cPassword}
         onChangeText={setCPassword}

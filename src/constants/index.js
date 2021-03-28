@@ -21,3 +21,8 @@ export const getDefaultImage = (id) => {
   }
   return avatars[Math.floor(Math.random() * avatars.length)];
 };
+
+export const colors = {
+  placeholder: '#666',
+  textInput: '#333',
+};

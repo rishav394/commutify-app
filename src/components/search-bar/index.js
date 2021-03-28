@@ -1,10 +1,6 @@
 import React, { createRef } from 'react';
-import {
-  StyleSheet,
-  TextInput,
-  TouchableWithoutFeedback,
-  View,
-} from 'react-native';
+import { StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
+import { Input } from '../input';
 
 export const SearchBar = ({
   searchText,
@@ -20,7 +16,7 @@ export const SearchBar = ({
         inputRef.current.focus();
       }}>
       <View style={boxed ? [styles.boxed] : undefined}>
-        <TextInput
+        <Input
           ref={inputRef}
           placeholder={placeholder || 'Search'}
           value={searchText}

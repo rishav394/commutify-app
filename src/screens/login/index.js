@@ -4,10 +4,10 @@ import {
   Button,
   StyleSheet,
   Text,
-  TextInput,
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
+import { Input } from '../../components/input';
 import { AuthContext } from '../../context/AuthContext';
 import { GlobalStyles } from '../../styles';
 
@@ -19,13 +19,13 @@ export const Login = ({ navigation }) => {
 
   return (
     <View style={GlobalStyles.container}>
-      <TextInput
+      <Input
         placeholder="Phone"
         value={phone}
         onChangeText={setPhone}
         keyboardType={'phone-pad'}
       />
-      <TextInput
+      <Input
         placeholder="Password"
         value={password}
         onChangeText={setPassword}
