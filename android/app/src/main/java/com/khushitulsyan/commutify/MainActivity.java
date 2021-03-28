@@ -1,4 +1,4 @@
-package com.commutify;
+package com.khushitulsyan.commutify;
 
 import com.facebook.react.ReactActivity;
 

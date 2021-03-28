@@ -1,4 +1,4 @@
-package com.commutify;
+package com.khushitulsyan.commutify;
 
 import android.app.Application;
 import android.content.Context;
