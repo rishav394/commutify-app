@@ -3,10 +3,7 @@ import {
   ActivityIndicator,
   Alert,
   Button,
-  Image,
-  ScrollView,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import {
@@ -19,7 +16,6 @@ import {
 } from '../../apis';
 import { LoadingSpinner } from '../../components/loader';
 import { UserPortrait } from '../../components/user-portrait';
-import { genderMapping } from '../../constants';
 import { GlobalStyles } from '../../styles';
 
 /*

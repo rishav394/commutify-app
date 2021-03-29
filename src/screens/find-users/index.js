@@ -48,7 +48,6 @@ export const FindUsers = ({ navigation }) => {
     return () => {
       timeout.current && clearTimeout(timeout.current);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

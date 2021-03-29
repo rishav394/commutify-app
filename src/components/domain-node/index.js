@@ -6,9 +6,7 @@ export const DomainNode = (props) => {
     <View
       style={[
         styles.container,
-        {
-          backgroundColor: props.subscribed ? '#18ba64' : '#c42323',
-        },
+        props.subscribed ? styles.greenContainer : styles.redContainer,
       ]}>
       <Text style={styles.text} numberOfLines={1}>
         {props.name}
@@ -31,5 +29,11 @@ const styles = StyleSheet.create({
   text: {
     color: 'white',
     fontSize: 17,
+  },
+  greenContainer: {
+    backgroundColor: '#18ba64',
+  },
+  redContainer: {
+    backgroundColor: '#c42323',
   },
 });

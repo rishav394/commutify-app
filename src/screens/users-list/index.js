@@ -27,9 +27,9 @@ export const UserList = ({ navigation, route }) => {
         Object.keys(usr).forEach((p) => {
           x['user__' + p] = usr[p];
         });
-        if (x['user__gender_id']) {
-          x['user__gender'] = x['user__gender_id'];
-          delete x['user__gender_id'];
+        if (x.user__gender_id) {
+          x.user__gender = x.user__gender_id;
+          delete x.user__gender_id;
         }
         tempUsers.push(x);
       })
