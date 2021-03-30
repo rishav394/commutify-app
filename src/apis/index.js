@@ -11,7 +11,9 @@ const kobe = Axios.create({
 // }
 
 export const logout = async () => {
-  await kobe.get('/logout');
+  await AsyncStorage.clear().finally(async () => {
+    await kobe.get('/logout');
+  });
 };
 
 export const login = async (phone, password) => {

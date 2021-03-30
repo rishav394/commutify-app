@@ -1,12 +1,12 @@
 import AsyncStorage from '@react-native-community/async-storage';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View } from 'react-native';
+import RNBootSplash from 'react-native-bootsplash';
 import { login, logout, signUp } from '../../apis';
 import { AuthContext } from '../../context/AuthContext';
 import { AuthStack } from '../../stacks/auth';
 import { MainStack } from '../../stacks/main';
 import { GlobalStyles } from '../../styles';
-import { LoadingSpinner } from '../loader';
 
 export const MobileBaseContainer = () => {
   const [state, dispatch] = React.useReducer(
@@ -71,7 +71,6 @@ export const MobileBaseContainer = () => {
         dispatch({ type: 'SIGN_IN', token: session });
       },
       signOut: () => {
-        AsyncStorage.clear();
         logout();
         dispatch({ type: 'SIGN_OUT' });
       },
@@ -87,16 +86,16 @@ export const MobileBaseContainer = () => {
     []
   );
 
+  useEffect(() => {
+    if (state.isLoading === false) {
+      RNBootSplash.hide({ fade: true });
+    }
+  }, [state]);
+
   return (
     <View style={GlobalStyles.fullScreen}>
       <AuthContext.Provider value={authContext}>
-        {state.isLoading ? (
-          <LoadingSpinner />
-        ) : state.userToken === null ? (
-          <AuthStack />
-        ) : (
-          <MainStack />
-        )}
+        {state.userToken === null ? <AuthStack /> : <MainStack />}
       </AuthContext.Provider>
     </View>
   );
