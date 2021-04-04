@@ -4,6 +4,8 @@ import React from 'react';
 import { StatusBar, View } from 'react-native';
 import { MobileBaseContainer } from './components/mobile-base-container';
 import { GlobalStyles } from './styles';
+import { useBackgroundLocation } from './util/useBackgroundLocation';
+import { useEffect } from 'react';
 
 const MyTheme = {
   dark: false,
@@ -18,6 +20,8 @@ const MyTheme = {
 };
 
 export const App = () => {
+  const [location, working, setWorking] = useBackgroundLocation();
+
   return (
     <View style={GlobalStyles.fullScreen}>
       <StatusBar barStyle={'dark-content'} />
